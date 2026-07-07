@@ -1,4 +1,7 @@
+"use client";
+
 import React from "react";
+import { motion, useReducedMotion } from "framer-motion";
 import MotionSection from "../ui/MotionSection";
 import Container from "../ui/Container";
 import SectionHeading from "../ui/SectionHeading";
@@ -13,6 +16,8 @@ function SkillPill({ children }: { children: string }) {
 }
 
 export default function Skills() {
+  const reduceMotion = useReducedMotion();
+
   const descriptions: Record<string, string> = {
     "Android Development":
       "Kotlin-first development with modern Jetpack Compose UI and Android SDK fundamentals.",
@@ -40,14 +45,22 @@ export default function Skills() {
         />
 
         <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
-          {portfolio.coreSkills.groups.map((group) => {
+          {portfolio.coreSkills.groups.map((group, index) => {
             const desc =
               descriptions[group.title] ??
               "Focused skills for building production Android applications with clean, maintainable engineering.";
             return (
-              <div
+              <motion.div
                 key={group.title}
-                className="rounded-3xl border border-white/10 bg-white/5 p-6 shadow-[0_0_0_1px_rgba(0,200,83,0.08)] hover:shadow-[0_0_60px_rgba(0,200,83,0.10)] transition-shadow"
+                initial={reduceMotion ? false : { opacity: 0, y: 18, scale: 0.98 }}
+                whileInView={reduceMotion ? undefined : { opacity: 1, y: 0, scale: 1 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{
+                  duration: reduceMotion ? 0 : 0.45,
+                  delay: reduceMotion ? 0 : index * 0.04,
+                }}
+                whileHover={reduceMotion ? undefined : { y: -5, scale: 1.01 }}
+                className="rounded-3xl border border-white/10 bg-white/5 p-6 shadow-[0_0_0_1px_rgba(0,200,83,0.08)] transition-all hover:shadow-[0_0_60px_rgba(0,200,83,0.10)]"
               >
                 <div className="flex items-start justify-between gap-3">
                   <h3 className="text-base font-semibold text-slate-100">
@@ -64,11 +77,22 @@ export default function Skills() {
                 </p>
 
                 <div className="mt-5 flex flex-wrap gap-2">
-                  {group.items.map((item) => (
-                    <SkillPill key={item}>{item}</SkillPill>
+                  {group.items.map((item, itemIndex) => (
+                    <motion.span
+                      key={item}
+                      initial={reduceMotion ? false : { opacity: 0, y: 6 }}
+                      whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
+                      viewport={{ once: true, amount: 0.3 }}
+                      transition={{
+                        duration: reduceMotion ? 0 : 0.28,
+                        delay: reduceMotion ? 0 : index * 0.04 + itemIndex * 0.02,
+                      }}
+                    >
+                      <SkillPill>{item}</SkillPill>
+                    </motion.span>
                   ))}
                 </div>
-              </div>
+              </motion.div>
             );
           })}
         </div>

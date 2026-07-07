@@ -41,6 +41,7 @@ export default function ExperienceTimeline() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, amount: 0.2 }}
                   transition={{ duration: 0.45, delay: idx * 0.04 }}
+                  whileHover={{ y: -4, scale: 1.01, transition: { duration: 0.2 } }}
                   className="relative pl-10 pr-2"
                 >
                   <span

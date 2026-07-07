@@ -38,6 +38,7 @@ export default function FeaturedProjects() {
                 duration: reduceMotion ? 0 : 0.5,
                 delay: reduceMotion ? 0 : idx * 0.03,
               }}
+              whileHover={reduceMotion ? undefined : { y: -6, scale: 1.01 }}
               className="group relative rounded-3xl border border-white/10 bg-white/5 p-6 transition-all hover:border-accent/20 hover:shadow-[0_0_60px_rgba(0,200,83,0.10)]"
             >
               <div className="absolute -top-3 -right-3 h-12 w-12 rounded-2xl bg-accent/10 border border-accent/20 blur-[0.2px] opacity-0 transition-opacity group-hover:opacity-100" />

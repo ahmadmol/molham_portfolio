@@ -13,10 +13,19 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const getSiteUrl = () => {
+  // Recommended: set NEXT_PUBLIC_SITE_URL in your environment.
+  // Example: https://your-domain.com
+  const raw = process.env.NEXT_PUBLIC_SITE_URL;
+  if (raw && raw.trim()) return new URL(raw.trim());
+  // Fallback to local dev
+  return new URL("http://localhost:3000");
+};
+
 export const metadata: Metadata = {
   title: portfolio.metaTitle,
   description: portfolio.metaDescription,
-  metadataBase: new URL("https://example.com"),
+  metadataBase: getSiteUrl(),
   openGraph: {
     type: "website",
     title: portfolio.metaTitle,
@@ -24,7 +33,7 @@ export const metadata: Metadata = {
     url: "/",
     images: [
       {
-        url: "/next.svg",
+        url: "/og-image.svg",
         width: 1200,
         height: 630,
         alt: "Molham Alnaeb portfolio",
@@ -35,7 +44,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: portfolio.metaTitle,
     description: portfolio.metaDescription,
-    images: ["/next.svg"],
+    images: ["/og-image.svg"],
   },
 };
 

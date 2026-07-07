@@ -12,14 +12,24 @@ import ScrollToTop from "@/components/ui/ScrollToTop";
 export default function Home() {
   return (
     <div>
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[60] focus:rounded-lg focus:bg-background focus:px-3 focus:py-2 focus:text-sm focus:shadow"
+      >
+        Skip to content
+      </a>
+
       <Navbar />
-      <Hero />
-      <About />
-      <ExperienceTimeline />
-      <Skills />
-      <FeaturedProjects />
-      <Education />
-      <Contact />
+      <main id="main-content">
+        <Hero />
+        <About />
+        <ExperienceTimeline />
+        <Skills />
+        <FeaturedProjects />
+        <Education />
+        <Contact />
+      </main>
+
       <Footer />
       <ScrollToTop />
     </div>

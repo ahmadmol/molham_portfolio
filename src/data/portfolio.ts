@@ -29,6 +29,10 @@ export type PortfolioData = {
   subtitle: string;
   location: string;
 
+  // Optional: provide a real CV/Resume URL if available.
+  // Must not be populated with a fake link.
+  resumeUrl?: string;
+
   contact: {
     email: string;
     phone: string;

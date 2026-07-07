@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import React from "react";
 import Container from "../ui/Container";
 import Button from "../ui/Button";
@@ -8,8 +8,11 @@ import Badge from "../ui/Badge";
 import { portfolio } from "@/data/portfolio";
 
 export default function Hero() {
+  const reduceMotion = useReducedMotion();
+  const resumeUrl = portfolio.resumeUrl;
+
   return (
-    <header className="relative overflow-hidden">
+    <header className="relative overflow-hidden min-h-[80vh]">
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--accent)_0%,transparent_55%)] opacity-40"
@@ -30,10 +33,12 @@ export default function Hero() {
             </div>
 
             <motion.h1
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, ease: "easeOut" }}
-              className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight"
+              initial={reduceMotion ? false : { opacity: 0, y: 10 }}
+              animate={reduceMotion ? { opacity: 1, y: 0 } : { opacity: 1, y: 0 }}
+              transition={
+                reduceMotion ? { duration: 0 } : { duration: 0.7, ease: "easeOut" }
+              }
+              className="text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight text-slate-50 [text-shadow:0_0_24px_rgba(0,200,83,0.12)]"
             >
               {portfolio.title}
             </motion.h1>
@@ -46,42 +51,89 @@ export default function Hero() {
               {portfolio.hero.details}
             </p>
 
-            <div className="mt-7 flex flex-col sm:flex-row gap-3 sm:items-center">
+            <div className="mt-8 flex flex-col sm:flex-row gap-3 sm:items-center">
               <Button
                 onClick={() => {
-                  document
-                    .getElementById("projects")
-                    ?.scrollIntoView({ behavior: "smooth", block: "start" });
+                  document.getElementById("projects")?.scrollIntoView({
+                    behavior: reduceMotion ? "auto" : "smooth",
+                    block: "start",
+                  });
                 }}
               >
                 View Projects
               </Button>
+
               <Button
                 variant="secondary"
                 onClick={() => {
-                  document
-                    .getElementById("contact")
-                    ?.scrollIntoView({ behavior: "smooth", block: "start" });
+                  document.getElementById("contact")?.scrollIntoView({
+                    behavior: reduceMotion ? "auto" : "smooth",
+                    block: "start",
+                  });
                 }}
               >
-                Contact
+                Contact Me
               </Button>
+
+              {resumeUrl ? (
+                <a
+                  href={resumeUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex"
+                  aria-label="Download CV (opens in a new tab)"
+                >
+                  <Button variant="secondary" className="w-full sm:w-auto">
+                    Download CV
+                  </Button>
+                </a>
+              ) : (
+                <Button
+                  variant="secondary"
+                  onClick={() => {
+                    document.getElementById("contact")?.scrollIntoView({
+                      behavior: reduceMotion ? "auto" : "smooth",
+                      block: "start",
+                    });
+                  }}
+                >
+                  Download CV
+                </Button>
+              )}
             </div>
           </div>
 
           <div className="lg:col-span-5">
             <motion.div
-              initial={{ opacity: 0, y: 12 }}
+              initial={reduceMotion ? false : { opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, ease: "easeOut", delay: 0.05 }}
+              transition={
+                reduceMotion
+                  ? { duration: 0 }
+                  : { duration: 0.7, ease: "easeOut", delay: 0.05 }
+              }
               className="rounded-3xl border border-white/10 bg-white/5 backdrop-blur p-6 sm:p-7 shadow-[0_0_0_1px_rgba(0,200,83,0.10)]"
             >
-              <p className="text-sm font-medium tracking-wide text-accent-400 uppercase">
-                Current role
-              </p>
-              <p className="mt-2 text-base sm:text-lg text-slate-200 font-semibold">
-                {portfolio.hero.currentRole}
-              </p>
+              <div className="flex items-start justify-between gap-4">
+                <div>
+                  <p className="text-sm font-medium tracking-wide text-accent-400 uppercase">
+                    Current role
+                  </p>
+                  <p className="mt-2 text-base sm:text-lg text-slate-200 font-semibold">
+                    {portfolio.hero.currentRole}
+                  </p>
+                </div>
+
+                <div className="hidden sm:flex items-center gap-2 rounded-2xl border border-white/10 bg-black/10 px-4 py-3">
+                  <span
+                    className="h-2.5 w-2.5 rounded-full bg-accent shadow-[0_0_0_6px_rgba(0,200,83,0.18)]"
+                    aria-hidden
+                  />
+                  <span className="text-xs font-semibold text-slate-200">
+                    Available for work
+                  </span>
+                </div>
+              </div>
 
               <ul className="mt-5 space-y-3">
                 {portfolio.hero.bullets.map((b) => (

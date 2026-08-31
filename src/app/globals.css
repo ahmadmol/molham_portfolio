@@ -1,31 +1,95 @@
 @import "tailwindcss";
 
+/* =========================================================
+   Design Tokens — Navy / Emerald Developer Portfolio
+   ========================================================= */
 :root {
-  --background: #0a0f1e;
-  --foreground: #d6deea;
-  --accent: #00c853;
+  /* Base palette */
+  --background: #050a18;            /* Deep navy base */
+  --background-soft: #0a1224;       /* Slightly lighter navy for cards */
+  --background-elevated: #0f1a2f;  /* Elevated surface */
+  --foreground: #e6ecf5;            /* Primary text */
+  --foreground-muted: #9aa7bd;      /* Secondary text */
+  --foreground-subtle: #6b7891;     /* Tertiary text */
+
+  /* Accent (Emerald) */
+  --accent: #10b981;                /* Emerald 500 */
+  --accent-bright: #34d399;         /* Emerald 400 — hover/glow */
+  --accent-deep: #047857;           /* Emerald 700 — pressed */
+  --accent-soft: rgba(16, 185, 129, 0.12);
+
+  /* Lines & strokes */
+  --border: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.14);
+  --border-accent: rgba(16, 185, 129, 0.30);
+
+  /* Glows */
+  --ring-accent: 0 0 0 3px rgba(16, 185, 129, 0.35);
+
+  /* Status */
+  --danger: #f87171;
+  --danger-soft: rgba(248, 113, 113, 0.10);
+
+  /* Layout */
+  --radius-card: 1.25rem;
+  --radius-pill: 999px;
+
+  /* Shadows */
+  --shadow-card: 0 1px 0 0 rgba(255, 255, 255, 0.04) inset,
+                 0 12px 30px -20px rgba(0, 0, 0, 0.5);
+
+  /* Motion */
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 @theme inline {
   --color-background: var(--background);
+  --color-background-soft: var(--background-soft);
+  --color-background-elevated: var(--background-elevated);
   --color-foreground: var(--foreground);
+  --color-foreground-muted: var(--foreground-muted);
+  --color-foreground-subtle: var(--foreground-subtle);
   --color-accent: var(--accent);
+  --color-accent-bright: var(--accent-bright);
+  --color-accent-deep: var(--accent-deep);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-danger: var(--danger);
 
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
+/* =========================================================
+   Base
+   ========================================================= */
 html {
   scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  text-rendering: optimizeLegibility;
+  scroll-padding-top: 5rem; /* offset for sticky nav */
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }
 
 body {
   min-height: 100vh;
-  background:
-    radial-gradient(circle at top left, rgba(0, 200, 83, 0.14), transparent 30%),
-    var(--background);
+  background-color: var(--background);
+  background-image:
+    radial-gradient(60rem 50rem at 85% -10%, rgba(16, 185, 129, 0.10), transparent 60%),
+    radial-gradient(45rem 40rem at -10% 10%, rgba(16, 185, 129, 0.06), transparent 60%),
+    radial-gradient(50rem 40rem at 50% 110%, rgba(13, 71, 161, 0.20), transparent 60%);
+  background-attachment: fixed;
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+  font-feature-settings: "ss01", "cv11";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 * {
@@ -37,17 +101,125 @@ body {
   color: white;
 }
 
+/* Focus ring — visible, consistent */
+:where(a, button, input, textarea, [role="button"]):focus-visible {
+  outline: none;
+  box-shadow: var(--ring-accent);
+  border-radius: 0.75rem;
+}
+
+/* Scrollbar (WebKit) */
 ::-webkit-scrollbar {
   width: 10px;
+  height: 10px;
 }
-
 ::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.04);
+  background: rgba(255, 255, 255, 0.02);
 }
-
 ::-webkit-scrollbar-thumb {
   border-radius: 999px;
-  background: rgba(0, 200, 83, 0.45);
+  background: color-mix(in srgb, var(--accent) 40%, transparent);
   border: 2px solid transparent;
   background-clip: content-box;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: color-mix(in srgb, var(--accent) 60%, transparent);
+  background-clip: content-box;
+  border: 2px solid transparent;
+}
+
+/* =========================================================
+   Reusable utilities
+   ========================================================= */
+
+/* Subtle grid texture for backgrounds */
+.bg-grid-faint {
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 56px 56px;
+  background-position: -1px -1px;
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, black 50%, transparent 90%);
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, black 50%, transparent 90%);
+}
+
+/* Card surface — used across sections for a consistent panel */
+.surface-card {
+  position: relative;
+  border-radius: var(--radius-card);
+  background: linear-gradient(180deg,
+    color-mix(in srgb, var(--background-elevated) 92%, transparent),
+    color-mix(in srgb, var(--background-soft) 88%, transparent));
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-card);
+  backdrop-filter: blur(8px);
+}
+
+.surface-card-hover {
+  transition: transform 220ms var(--ease-out-soft),
+              border-color 220ms var(--ease-out-soft),
+              box-shadow 220ms var(--ease-out-soft);
+}
+.surface-card-hover:hover {
+  border-color: var(--border-accent);
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--accent) 25%, transparent),
+    0 24px 60px -32px rgba(16, 185, 129, 0.35),
+    var(--shadow-card);
+}
+
+/* Accent text gradient */
+.text-gradient-accent {
+  background: linear-gradient(120deg,
+    var(--foreground) 0%,
+    var(--foreground) 35%,
+    var(--accent-bright) 70%,
+    var(--accent) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Soft pulsing dot — for "available" status etc. */
+@keyframes soft-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 55%, transparent); }
+  50%      { box-shadow: 0 0 0 10px color-mix(in srgb, var(--accent) 0%, transparent); }
+}
+.pulse-dot {
+  animation: soft-pulse 2.4s var(--ease-out-soft) infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .pulse-dot { animation: none; }
+}
+
+/* Marquee shimmer for the under-title bar */
+@keyframes bar-grow {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+.bar-grow {
+  transform-origin: left;
+  animation: bar-grow 900ms var(--ease-out-soft) both;
+}
+
+/* Subtle float for hero accent shape */
+@keyframes float-slow {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50%      { transform: translate3d(0, -8px, 0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .float-slow { animation: none; }
+}
+
+/* Hide scrollbar utility (for mobile menu / marquees) */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { scrollbar-width: none; }
+
+/* Smooth section divider */
+.section-divider {
+  height: 1px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    color-mix(in srgb, var(--accent) 25%, transparent) 50%,
+    transparent 100%);
 }

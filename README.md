@@ -1,36 +1,103 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Molham Alnaeb — Portfolio
 
-## Getting Started
+A modern, single-page developer portfolio for **Molham Alnaeb** — Android
+Developer specialized in Kotlin, Jetpack Compose, REST APIs, and modern
+mobile engineering.
 
-First, run the development server:
+The site is built with **Next.js 15 (App Router)**, **TypeScript**, **Tailwind
+CSS v4**, and **Framer Motion**, exported as a fully static site and deployed
+to **GitHub Pages** under `/molham_portfolio/`.
+
+## Tech stack
+
+- **Next.js 15** — App Router, static export (`output: "export"`)
+- **TypeScript** — strict
+- **Tailwind CSS v4** — via `@tailwindcss/postcss`
+- **Framer Motion** — entry animations, mobile menu, scroll-to-top
+- **Geist** — primary font (via `next/font`)
+- **No backend** — the contact form uses `mailto:` so submissions are real
+  email drafts, not a network request
+
+## Local development
 
 ```bash
+cd portfolio-site
+npm ci
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open <http://localhost:3000>.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Quality checks
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run lint   # ESLint (next/core-web-vitals + next/typescript)
+npm run build  # Static export into ./out
+```
 
-## Learn More
+## Deploying to GitHub Pages
 
-To learn more about Next.js, take a look at the following resources:
+This repo is pre-configured for static export:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- `next.config.ts` sets `output: "export"`, `basePath: "/molham_portfolio"`,
+  and `assetPrefix: "/molham_portfolio/"`.
+- After `npm run build`, the static site is generated in `./out`.
+- Publish the contents of `./out` to the `gh-pages` branch (or a Pages
+  workflow that uploads `./out` as an artifact).
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+To set a custom canonical URL for metadata, define
+`NEXT_PUBLIC_SITE_URL` before building.
 
-## Deploy on Vercel
+## Project structure
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```
+portfolio-site/
+├── public/                 # Static assets (og-image, favicon, etc.)
+├── src/
+│   ├── app/                # Next.js App Router (layout, page, globals.css)
+│   ├── components/
+│   │   ├── sections/       # Page sections (Hero, About, Skills, …)
+│   │   ├── ui/             # Reusable primitives (Button, Badge, …)
+│   │   └── LoadingAnimation.tsx
+│   ├── data/portfolio.ts   # Typed source of truth for all content
+│   └── types/css.d.ts
+├── next.config.ts
+└── package.json
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+All visible text — including names, projects, skills, and contact details —
+comes from `src/data/portfolio.ts`, which is sourced from
+`portfolio-content.md` in the repository root. To update content, edit the
+data file (or its source) and rebuild.
+
+## Design system
+
+- **Palette**: deep navy base (`#050A18`) with emerald accent (`#10B981`).
+  Tokens are defined in `src/app/globals.css` (`@theme inline` block).
+- **Typography**: Geist Sans (UI) + Geist Mono (code/kickers), tight tracking
+  on display sizes.
+- **Surfaces**: `.surface-card` provides a consistent panel style across
+  About, Experience, Skills, Projects, Education, and Contact.
+- **Motion**: All Framer Motion components respect
+  `prefers-reduced-motion` and switch to a static presentation.
+
+## Contact form
+
+The contact form does **not** POST anywhere. Submitting it opens the user's
+default email client with a pre-filled `mailto:` draft. The UI is honest
+about this: it tells the user "Submitting opens your email app — no data is
+stored on a server" and shows a fallback link to the email address if the
+mail client fails to open.
+
+## Accessibility
+
+- Skip-to-content link
+- Visible focus rings on all interactive elements
+- `aria-current`, `aria-expanded`, `aria-controls` on nav controls
+- Form fields wired with `aria-invalid` and `aria-describedby`
+- Status messages announced via `role="status"` + `aria-live="polite"`
+- Full keyboard support, including Escape-to-close on the mobile menu
+
+## License
+
+© Molham Alnaeb. All rights reserved.

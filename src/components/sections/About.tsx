@@ -6,9 +6,9 @@ import { portfolio } from "@/data/portfolio";
 
 export default function About() {
   return (
-    <MotionSection id="about" className="py-16 sm:py-20">
+    <MotionSection id="about" className="py-16 sm:py-24">
       <Container>
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start">
+        <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-14 lg:items-start">
           <div className="lg:col-span-5">
             <SectionHeading
               kicker="About"
@@ -18,25 +18,48 @@ export default function About() {
           </div>
 
           <div className="lg:col-span-7">
-            <div className="rounded-3xl border border-white/10 bg-white/5 p-6 sm:p-7">
+            <div className="surface-card p-6 sm:p-8">
               <div className="space-y-4">
                 {portfolio.about.paragraphs.slice(1).map((p) => (
-                  <p key={p} className="text-slate-300/95 leading-relaxed">
+                  <p
+                    key={p}
+                    className="text-foreground-muted leading-relaxed text-[15px] sm:text-base"
+                  >
                     {p}
                   </p>
                 ))}
               </div>
 
-              <div className="mt-7 grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2">
                 <div>
-                  <p className="text-sm font-semibold text-accent">
-                    Why work with me
-                  </p>
-                  <ul className="mt-3 space-y-2">
+                  <div className="flex items-center gap-2">
+                    <span
+                      className="h-1.5 w-1.5 rounded-full bg-accent"
+                      aria-hidden
+                    />
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-accent">
+                      Why work with me
+                    </p>
+                  </div>
+                  <ul className="mt-4 space-y-2.5">
                     {portfolio.about.whyWorkWithMe.map((item) => (
-                      <li key={item} className="flex items-start gap-3">
-                        <span className="mt-1 h-2 w-2 rounded-full bg-accent shadow-[0_0_0_4px_rgba(0,200,83,0.18)]" />
-                        <span className="text-slate-300/90 text-sm sm:text-base">
+                      <li
+                        key={item}
+                        className="flex items-start gap-3 rounded-lg p-1.5 -ml-1.5 transition-colors hover:bg-white/[0.03]"
+                      >
+                        <svg
+                          width="16"
+                          height="16"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2.4"
+                          aria-hidden
+                          className="mt-1 shrink-0 text-accent"
+                        >
+                          <path d="m5 12 5 5L20 7" />
+                        </svg>
+                        <span className="text-foreground-muted text-sm sm:text-[15px] leading-relaxed">
                           {item}
                         </span>
                       </li>
@@ -45,25 +68,27 @@ export default function About() {
                 </div>
 
                 <div>
-                  <p className="text-sm font-semibold text-accent">
-                    Current focus
-                  </p>
-                  <ul className="mt-3 space-y-2">
+                  <div className="flex items-center gap-2">
+                    <span
+                      className="h-1.5 w-1.5 rounded-full bg-accent"
+                      aria-hidden
+                    />
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-accent">
+                      Current focus
+                    </p>
+                  </div>
+                  <ul className="mt-4 flex flex-wrap gap-2">
                     {portfolio.about.currentFocus.map((item) => (
-                      <li key={item} className="flex items-start gap-3">
-                        <span className="mt-1 h-2 w-2 rounded-full bg-white/20 border border-white/10" />
-                        <span className="text-slate-300/90 text-sm sm:text-base">
-                          {item}
-                        </span>
+                      <li
+                        key={item}
+                        className="rounded-full border border-white/10 bg-white/[0.03] px-3 py-1.5 text-xs font-semibold text-slate-200 transition-colors hover:border-accent/30 hover:text-accent"
+                      >
+                        {item}
                       </li>
                     ))}
                   </ul>
                 </div>
               </div>
-            </div>
-
-            <div className="mt-5 text-xs text-slate-400">
-              Tip: explore my experience timeline and featured projects below.
             </div>
           </div>
         </div>

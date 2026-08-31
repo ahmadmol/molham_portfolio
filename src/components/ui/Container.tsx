@@ -1,20 +1,24 @@
 import React from "react";
 
+type Props = {
+  children: React.ReactNode;
+  className?: string;
+  as?: "div" | "section" | "article" | "header" | "footer" | "main";
+};
+
 export default function Container({
   children,
   className = "",
-}: {
-  children: React.ReactNode;
-  className?: string;
-}) {
+  as: Tag = "div",
+}: Props) {
   return (
-    <div
+    <Tag
       className={[
         "mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8",
         className,
       ].join(" ")}
     >
       {children}
-    </div>
+    </Tag>
   );
 }

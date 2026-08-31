@@ -11,17 +11,20 @@ import ScrollToTop from "@/components/ui/ScrollToTop";
 
 export default function Home() {
   return (
-    <div>
+    <div className="relative">
       <a
         href="#main-content"
-        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[60] focus:rounded-lg focus:bg-background focus:px-3 focus:py-2 focus:text-sm focus:shadow"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[60] focus:rounded-lg focus:bg-background focus:px-3 focus:py-2 focus:text-sm focus:text-foreground focus:shadow focus:ring-2 focus:ring-accent/70"
       >
         Skip to content
       </a>
 
       <Navbar />
-      <main id="main-content">
+      <main id="main-content" className="relative">
         <Hero />
+        <div aria-hidden className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <div className="section-divider" />
+        </div>
         <About />
         <ExperienceTimeline />
         <Skills />

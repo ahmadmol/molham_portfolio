@@ -1,310 +1,268 @@
 export type ExperienceItem = {
   role: string;
   company: string;
-  locationOrMeta?: string;
   start: string;
   end: string;
   highlights: string[];
   technologies: string[];
 };
-
 export type ProjectItem = {
+  id: string;
   title: string;
-  problem: string;
-  solution: string;
+  category: string;
+  visualTheme: "property" | "auction" | "quiz" | "accessibility";
+  summary: string;
+  detail: string;
   technologies: string[];
-  result: string;
-
-  // Optional enrichment fields (supported by UI; content may not provide them yet)
-  screenshotUrl?: string;
-  githubUrl?: string;
-  liveUrl?: string;
+  evidenceStatus: "cv" | "older-portfolio-needs-confirmation";
+  repositoryUrl?: string;
+  demoUrl?: string;
 };
-
-export type PortfolioData = {
-  metaTitle: string;
-  metaDescription: string;
-
+export type SectionCopy = {
+  index: string;
+  label: string;
   title: string;
-  subtitle: string;
-  location: string;
-
-  // Optional: provide a real CV/Resume URL if available.
-  // Must not be populated with a fake link.
-  resumeUrl?: string;
-
-  contact: {
-    email: string;
-    phone: string;
-    linkedInUrl: string;
-    gitHubUrl: string;
-  };
-
-  hero: {
-    statement: string;
-    details: string;
-    currentRole: string;
-    bullets: string[];
-  };
-
-  about: {
-    heading: string;
-    paragraphs: string[];
-    whyWorkWithMe: string[];
-    currentFocus: string[];
-  };
-
-  coreSkills: {
-    heading: string;
-    groups: Array<{
-      title: string;
-      items: string[];
-    }>;
-  };
-
-  experience: {
-    heading: string;
-    items: ExperienceItem[];
-  };
-
-  featuredProjects: {
-    heading: string;
-    items: ProjectItem[];
-  };
-
-  education: {
-    heading: string;
-    degree: string;
-    university: string;
-    start: string;
-    end: string;
-  };
-
-  languages: {
-    heading: string;
-    items: Array<{ name: string; level: string }>;
-  };
-
-  contactSection: {
-    heading: string;
-    subheading: string;
-  };
-
-  footer: {
-    quote: string;
-  };
+  description?: string;
 };
 
-export const portfolio: PortfolioData = {
-  metaTitle: "Molham Alnaeb — Android Developer",
+export const portfolio = {
+  metaTitle: "Molham Alnaeb — Mobile Developer | Kotlin, Compose & Flutter",
   metaDescription:
-    "Android Developer specialized in Kotlin, Jetpack Compose, REST APIs, and modern mobile engineering.",
-
+    "Mobile Developer building Android and Flutter experiences with Kotlin, Jetpack Compose and Dart. Based in Aleppo, Syria; open to opportunities across the GCC.",
   title: "Molham Alnaeb",
-  subtitle: "Android Developer | Kotlin • Jetpack Compose • Java",
+  role: "Mobile Developer",
+  subtitle: "Android (Kotlin & Jetpack Compose) · Flutter",
   location: "Aleppo, Syria",
-
+  resumeAsset: "resume/Molham_Alnaeb_CV_2026.pdf",
   contact: {
     email: "molhamalnaab@gmail.com",
-    phone: "+963 967225762",
-    linkedInUrl: "linkedin.com/in/ahmad-molham-alnaeb",
-    gitHubUrl: "github.com/ahmadmol",
+    phone: "+963 967 225 762",
+    phoneHref: "+963967225762",
+    linkedInUrl: "https://www.linkedin.com/in/ahmad-molham-alnaeb",
+    gitHubUrl: "https://github.com/ahmadmol",
   },
-
+  nav: [
+    { id: "projects", label: "Projects" },
+    { id: "experience", label: "Experience" },
+    { id: "about", label: "About" },
+    { id: "skills", label: "Skills" },
+    { id: "contact", label: "Contact" },
+  ],
   hero: {
-    statement: "Building Android applications that solve real-world business problems.",
-    details:
-      "Android Developer specialized in Kotlin, Jetpack Compose, REST APIs, SQLite, Supabase, Authentication, Maps Integration, and Payment Workflows.",
-    currentRole:
-      "Currently working as a Kotlin Developer at SWB Company while continuously building modern Android solutions and improving my software engineering skills.",
-    bullets: [
-      "Kotlin & Jetpack Compose",
-      "REST APIs • SQLite • Supabase",
-      "Authentication • Maps • Payment Workflows",
+    availability: "Available for mobile development opportunities",
+    headline: "Building dependable mobile experiences.",
+    emphasis: "Native Android. Flutter.",
+    summary:
+      "I’m a Mobile Developer and Computer Engineering graduate building complete features — from interface and business logic to API integration and validation.",
+    badges: [
+      "Kotlin",
+      "Jetpack Compose",
+      "Flutter",
+      "Dart",
+      "Android SDK",
+      "REST APIs",
     ],
+    panel: {
+      title: "Mobile engineering",
+      clusters: [
+        {
+          label: "Native Android",
+          items: "Kotlin · Jetpack Compose",
+          detail: "Java · Android SDK",
+        },
+        {
+          label: "Cross-platform",
+          items: "Flutter · Dart",
+          detail: "Android / iOS feature development",
+        },
+      ],
+      integration: "REST APIs · Supabase · SQLite",
+    },
   },
-
+  proof: [
+    { title: "SWB Company", detail: "Professional mobile development" },
+    { title: "Native Android", detail: "Kotlin · Jetpack Compose" },
+    { title: "Cross-platform", detail: "Flutter · Dart" },
+    {
+      title: "Development experience",
+      detail: "Freelance & academic · Since 2022",
+    },
+  ],
+  sections: {
+    projects: {
+      index: "01",
+      label: "Selected work",
+      title: "Real problems. Thoughtful mobile products.",
+      description:
+        "Selected work across property, auctions, education and accessibility.",
+    },
+    experience: {
+      index: "02",
+      label: "Experience",
+      title: "Building products in real-world teams.",
+    },
+    about: {
+      index: "03",
+      label: "Behind the work",
+      title: "An engineering mindset. A product perspective.",
+    },
+    skills: {
+      index: "04",
+      label: "Toolkit",
+      title: "The tools behind the work.",
+    },
+    education: {
+      index: "05",
+      label: "Foundation",
+      title: "Engineering, from the ground up.",
+    },
+    contact: {
+      index: "06",
+      label: "What’s next",
+      title: "Let’s build something useful.",
+    },
+  } satisfies Record<string, SectionCopy>,
   about: {
-    heading: "About Me",
     paragraphs: [
-      "I am an Android Developer and Computer Engineering graduate passionate about building high-quality mobile applications using modern Android technologies.",
-      "My experience spans freelance development, company-based software development, and academic projects. I have worked on applications across multiple domains including education, real estate, product marketing, auctions, and accessibility solutions.",
-      "I enjoy transforming business requirements into reliable mobile products with clean architecture, maintainable code, and user-friendly experiences.",
-    ],
-    whyWorkWithMe: [
-      "Strong Android Development Skills",
-      "Real Company Experience",
-      "Freelance Project Experience",
-      "Clean and Maintainable Code",
-      "Fast Learner",
-      "Business-Oriented Mindset",
-      "Problem Solver",
-      "Continuous Improvement",
+      "I’m Molham, a Mobile Developer based in Aleppo, Syria. My path started with Java and native Android, grew through Kotlin and Jetpack Compose, and now includes Flutter and Dart for cross-platform development.",
+      "I work across the complete feature: understanding requirements, building interfaces and business logic, connecting data, and validating the experience. In an AI-assisted workflow, I personally review, debug and refactor generated code for maintainability and project fit.",
     ],
     currentFocus: [
-      "Advanced Jetpack Compose",
-      "Modern Android Architecture",
-      "Clean Architecture",
-      "Scalable Android Applications",
-      "Mobile Performance Optimization",
-      "Professional Software Development Practices",
+      "Modern Android & Jetpack Compose",
+      "Flutter & Dart",
+      "Maintainable application structure",
+      "Debugging & performance",
     ],
   },
-
   coreSkills: {
-    heading: "Core Skills",
     groups: [
       {
-        title: "Android Development",
+        title: "Native Android",
         items: ["Kotlin", "Jetpack Compose", "Java", "Android SDK"],
       },
       {
-        title: "Backend & Data",
-        items: ["REST APIs", "Supabase", "SQLite", "Local Storage"],
-      },
-      {
-        title: "Mobile Features",
+        title: "Cross-platform",
         items: [
-          "Authentication",
-          "User Management",
-          "Payment Integration",
-          "Maps & Location Services",
-          "API Integration",
+          "Flutter",
+          "Dart",
+          "Android / iOS features",
+          "Responsive interfaces",
         ],
       },
       {
-        title: "Software Engineering",
+        title: "Data & integrations",
         items: [
-          "Object-Oriented Programming (OOP)",
-          "Data Structures",
-          "Problem Solving",
-          "Git",
-          "GitHub",
-          "Clean Code Principles",
+          "REST APIs",
+          "Supabase · SQLite",
+          "Authentication",
+          "Maps & location",
+          "Payment flows",
+        ],
+      },
+      {
+        title: "Engineering & workflow",
+        items: [
+          "Debugging & refactoring",
+          "Git / GitHub",
+          "OOP & problem solving",
+          "AI-assisted code review",
         ],
       },
     ],
   },
-
   experience: {
-    heading: "Experience",
     items: [
       {
-        role: "Kotlin Developer",
+        role: "Mobile Developer — Kotlin, Jetpack Compose & Flutter",
         company: "SWB Company",
-        locationOrMeta: "Aleppo, Syria",
         start: "February 2026",
         end: "Present",
         highlights: [
-          "Working as a Kotlin Developer within a professional software development team.",
-          "Participated in developing and maintaining more than 5 production applications.",
-          "Built Android features using Kotlin and Jetpack Compose.",
-          "Implemented business requirements into scalable and maintainable solutions.",
-          "Collaborated with developers and stakeholders to deliver software features.",
-          "Worked with REST APIs, local storage solutions, and authentication systems.",
-          "Contributed to debugging, testing, optimization, and code improvements.",
-          "Followed clean coding practices and maintainable architecture patterns.",
+          "Built complete Android applications with Kotlin and Jetpack Compose.",
+          "Developed end-to-end features covering UI, business logic, REST APIs, data handling, validation and error states.",
+          "Transitioned to Flutter and Dart to build cross-platform Android/iOS features and backend-connected screens.",
+          "Review, debug and refactor agent-generated code while owning features from requirements through integration and validation.",
         ],
         technologies: [
           "Kotlin",
           "Jetpack Compose",
-          "Android SDK",
+          "Flutter",
+          "Dart",
           "REST APIs",
-          "SQLite",
-          "Git",
-          "GitHub",
         ],
       },
       {
-        role: "Freelance Mobile Developer",
-        company: "",
-        start: "2023",
+        role: "Freelance and Academic Mobile Developer",
+        company: "Independent & academic projects",
+        start: "2022",
         end: "Present",
         highlights: [
-          "Built more than 5 mobile applications across different industries.",
-          "Developed Android applications using Kotlin and Jetpack Compose.",
-          "Integrated REST APIs and Supabase services.",
-          "Implemented authentication and authorization systems.",
-          "Added maps and location-based functionality.",
-          "Built local storage solutions using SQLite.",
-          "Implemented payment-related workflows.",
-          "Assisted students and teams with graduation projects and technical implementation.",
+          "Progressed from Java and native Android to Kotlin, Jetpack Compose, Flutter and Dart.",
+          "Built and supported applications and academic projects involving quizzes, product marketing, real estate and horse auctions.",
+          "Implemented APIs, local storage, authentication, maps/location and payment flows; provided debugging, technical guidance and reusable UI components.",
         ],
-        technologies: [
-          "Kotlin",
-          "Jetpack Compose",
-          "REST APIs",
-          "Supabase",
-          "Authentication",
-          "SQLite",
-          "Maps Integration",
-          "Payment Workflows",
-        ],
+        technologies: ["Java", "Kotlin", "Flutter", "Supabase", "SQLite"],
       },
-      {
-        role: "Java Developer — IoT Project",
-        company: "Remocola Company",
-        start: "3 Months",
-        end: "",
-        highlights: [
-          "Worked as a Java Developer on an IoT project.",
-          "Implemented Java business logic and functionality.",
-          "Participated in testing and debugging activities.",
-          "Collaborated with team members to solve technical challenges.",
-        ],
-        technologies: ["Java", "IoT", "Testing", "Debugging"],
-      },
-    ],
+    ] satisfies ExperienceItem[],
   },
-
   featuredProjects: {
-    heading: "Featured Projects",
     items: [
       {
-        title: "Smart Assistant for the Blind",
-        problem:
-          "Visually impaired users often face challenges identifying objects and navigating their environment independently.",
-        solution:
-          "Developed a mobile application connected to AI-powered recognition services and a local server to identify objects and shapes in real time.",
-        technologies: ["Flutter", "AI Integration", "Local Server", "Object Recognition"],
-        result:
-          "Delivered an accessibility-focused solution that helps users better understand and interact with their surroundings.",
-      },
-      {
+        id: "real-estate",
         title: "Real Estate Mobile Application",
-        problem: "Property seekers need an efficient way to discover and explore available properties.",
-        solution:
-          "Built a mobile platform that allows users to browse property listings with location-based functionality.",
-        technologies: ["Kotlin", "Jetpack Compose", "REST APIs", "Maps Integration"],
-        result: "Improved property exploration through a modern mobile experience.",
+        category: "Property & discovery",
+        visualTheme: "property",
+        summary:
+          "A mobile application for property listings and real estate workflows.",
+        detail:
+          "Built and supported real estate application features as part of freelance and academic development work.",
+        technologies: [],
+        evidenceStatus: "older-portfolio-needs-confirmation",
       },
       {
+        id: "horse-auction",
         title: "Horse Auction Application",
-        problem: "Auction participants require an intuitive way to browse listings and interact with auction items.",
-        solution:
-          "Developed mobile screens and business workflows supporting auction-related activities.",
-        technologies: ["Kotlin", "Jetpack Compose", "Supabase"],
-        result: "Provided a user-friendly mobile experience for auction browsing and interaction.",
+        category: "Auctions & commerce",
+        visualTheme: "auction",
+        summary:
+          "Mobile application features supporting horse auction workflows.",
+        detail:
+          "Developed auction-related mobile functionality as part of freelance and academic application work.",
+        technologies: [],
+        evidenceStatus: "older-portfolio-needs-confirmation",
       },
       {
+        id: "quiz",
         title: "Quiz & Testing Application",
-        problem: "Students need a structured and reliable testing environment.",
-        solution:
-          "Built an examination-style application featuring question management, answer tracking, and results screens.",
-        technologies: ["Kotlin", "SQLite", "Android SDK"],
-        result: "Delivered a smooth and efficient assessment experience.",
+        category: "Education & assessment",
+        visualTheme: "quiz",
+        summary:
+          "A mobile quiz and examination experience with questions, answers and results.",
+        detail:
+          "Built quiz and exam features, drawing on experience supporting educational applications and academic projects.",
+        technologies: [],
+        evidenceStatus: "older-portfolio-needs-confirmation",
       },
-    ],
+      {
+        id: "smart-assistant",
+        title: "Smart Assistant for Visually Impaired Users",
+        category: "Accessibility · Graduation project",
+        visualTheme: "accessibility",
+        summary:
+          "An accessible Flutter application for navigation and object awareness.",
+        detail:
+          "Connected AI recognition services and a local processing server to clear user guidance.",
+        technologies: ["Flutter", "Dart", "AI integration", "Local server"],
+        evidenceStatus: "cv",
+      },
+    ] satisfies ProjectItem[],
   },
-
   education: {
-    heading: "Education",
-    degree: "Bachelor's Degree in Computer Engineering",
-    university: "University of Aleppo",
+    degree: "Bachelor’s Degree in Computer Engineering",
+    university: "Aleppo University",
     start: "2019",
     end: "2025",
   },
-
   languages: {
     heading: "Languages",
     items: [
@@ -312,13 +270,15 @@ export const portfolio: PortfolioData = {
       { name: "English", level: "Intermediate" },
     ],
   },
-
   contactSection: {
-    heading: "Contact",
-    subheading: "Let’s build something that makes mobile feel effortless.",
+    subheading:
+      "Open to on-site, hybrid and remote mobile development opportunities, and relocation across Saudi Arabia, the UAE and other GCC countries.",
+    formTitle: "Start a conversation",
+    draftHint:
+      "Opens your email app with a prepared draft; no data is submitted to this website.",
   },
-
   footer: {
-    quote: "The right place was worth the wait. Building Android products, solving real problems, and learning every day. 🚀",
+    quote: "The right place was worth the wait.",
+    statement: "Thoughtful interfaces. Dependable mobile experiences.",
   },
 };

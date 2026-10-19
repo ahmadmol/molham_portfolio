@@ -1,22 +1,16 @@
-import React from "react";
-
-type Props = {
-  children: React.ReactNode;
-  className?: string;
-  as?: "div" | "section" | "article" | "header" | "footer" | "main";
-};
-
+import type { ReactNode } from "react";
 export default function Container({
   children,
   className = "",
   as: Tag = "div",
-}: Props) {
+}: {
+  children: ReactNode;
+  className?: string;
+  as?: "div" | "section" | "article" | "header" | "footer" | "main";
+}) {
   return (
     <Tag
-      className={[
-        "mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8",
-        className,
-      ].join(" ")}
+      className={`mx-auto w-full max-w-[1280px] px-5 sm:px-8 lg:px-10 ${className}`}
     >
       {children}
     </Tag>

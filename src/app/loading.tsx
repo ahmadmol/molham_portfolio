@@ -1,5 +1,2 @@
-import { LoadingAnimation } from "@/components/LoadingAnimation";
-
-export default function Loading() {
-  return <LoadingAnimation />;
-}
+// The portfolio is entirely static; avoid a blocking loading presentation.
+export default function Loading() { return null; }

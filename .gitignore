@@ -39,3 +39,23 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Local QA evidence and implementation-session reports
+/docs/qa/
+/docs/PORTFOLIO_QA_REPORT.md
+/docs/DEPLOYMENT_LOCAL_REPORT.md
+/test-results/
+/playwright-report/
+
+# Local tooling, editor state, credentials and temporary files
+*.log
+.cache/
+.eslintcache
+.vscode/
+.idea/
+*.bak
+*.tmp
+*.key
+*.p12
+*.pfx
+credentials*.json
